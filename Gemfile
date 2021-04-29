@@ -19,6 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'acts_as_tenant'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

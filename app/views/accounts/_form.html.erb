@@ -1,0 +1,53 @@
+<h1>This is the contact form</h1>
+
+<div class="ui centered grid">
+  <div>
+    <%= form_with model: @account do |form| %>
+      <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2 class="red ui header"><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+          <div class="ui list">
+            <% @account.errors.each do |error| %>
+              <div class="item">
+                <i class="red times circle icon"></i>
+                <%= error.full_message %>
+              </div>
+            <% end %>
+          </div> 
+        </div>
+      <%end%>
+      <div class="ui form">
+        <h4 class="ui dividing header">Account information</h4>
+
+        <div class="field">
+          <label>Name</label>
+          <div class="three fields">
+            <div class="field">
+              <%= form.text_field :name, placeholder:"Account name" %>
+            </div>
+            <div class="field">
+              <%= form.text_field :email, placeholder:"Email" %>
+            </div>
+            <div class="field">
+              <%= form.password_field :password, placeholder:"Password" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="fields">
+          <div class="seven wide field">
+            <label>Card number</label>
+            <%= form.text_field :cc_number, placeholder:"Credit card number" %>
+          </div>
+          
+        <div>   
+      </div>
+
+      <div class="actions">
+        <%= form.submit class:"ui primary button"%>
+      </div>
+
+    <%end%>
+  </div>
+</div>

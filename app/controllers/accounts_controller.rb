@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[ show edit update destroy ]
+  #before_action :set_account, only: %i[ show edit update destroy ]
   
   def index
     @accounts = current_user.accounts
@@ -10,9 +10,14 @@ class AccountsController < ApplicationController
   end
 
   def create 
-    current_user.accounts.create(account_params)
-    flash[:notice] = "Contacts uploaded successfully"
-    redirect_to accounts_path
+    @account = current_user.accounts.create(account_params)
+    
+    if @account.save
+      redirect_to users_path
+      flash[:notice] = "account created successfully"
+    else
+      render 'users#index'
+    end
   end
 
   private
