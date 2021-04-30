@@ -3,7 +3,9 @@
 <ul>
   <% @accounts.each do |account| %>
     <li>
-      <%=link_to account.name, account %>
+      <%= link_to account.name,"#{change_subdomain(@url, @subdomain, account.subdomain)}" %>
+      
     </li>
+    <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>
   <% end %>
 </ul>

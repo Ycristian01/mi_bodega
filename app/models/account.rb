@@ -16,7 +16,7 @@ class Account < ApplicationRecord
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   
-  has_many :boxes
-  has_many :memberships
-  has_many :invites
+  has_many :boxes, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :invites, dependent: :destroy
 end

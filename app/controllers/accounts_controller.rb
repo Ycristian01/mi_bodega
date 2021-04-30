@@ -1,8 +1,11 @@
 class AccountsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_account, only: %i[ show edit update destroy ]
-  
   def index
     @accounts = Account.all
+    @url = request.protocol + request.host_with_port
+    @subdomain = request.subdomain
+    
   end
 
   def show
@@ -35,4 +38,6 @@ class AccountsController < ApplicationController
     def account_params
       params.require(:account).permit(:name, :subdomain, :email, :password, :cc_number)
     end
+
+    
 end

@@ -1,6 +1,8 @@
 <h1><%= @account.name %></h1>
 
 <h2>Boxes</h2>
+
+<%= link_to 'Create new box', new_box_path %>
 <% @boxes.each do |box|%>
   <%box.name%>
 <%end%>
