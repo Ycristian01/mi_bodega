@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-
+    @boxes = @account.boxes.all
   end
 
   def new
@@ -33,6 +33,6 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit(:name, :email, :password, :cc_number)
+      params.require(:account).permit(:name, :subdomain, :email, :password, :cc_number)
     end
 end

@@ -22,9 +22,12 @@
 
         <div class="field">
           <label>Name</label>
-          <div class="three fields">
+          <div class="four fields">
             <div class="field">
               <%= form.text_field :name, placeholder:"Account name" %>
+            </div>
+            <div class="field">
+              <%= form.text_field :subdomain, placeholder:"Account subdmain" %>
             </div>
             <div class="field">
               <%= form.text_field :email, placeholder:"Email" %>
