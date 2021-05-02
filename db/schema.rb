@@ -10,18 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_163754) do
+ActiveRecord::Schema.define(version: 2021_05_02_231713) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.string "email"
-    t.string "password"
-    t.string "cc_franchise"
     t.string "cc_number"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "subdomain"
+    t.string "plan"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 

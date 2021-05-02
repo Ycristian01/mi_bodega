@@ -21,6 +21,30 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <%# <h4 class="ui dividing header">Account information</h4> %>
+    
+  <%= f.fields_for :account do |ac| %>
+    <div class="field">
+      <%= ac.label :name, "Account name" %><br />
+      <%= ac.text_field :name, required: true %>
+    </div>
+
+    <div class="field">
+      <%= ac.label :subdomain, "Account subdomain" %><br />
+      <%= ac.text_field :subdomain, required: true %>
+    </div>
+
+    <div class="field">
+      <%= ac.label :password, "Account password" %><br />
+      <%= ac.password_field :password %>
+    </div>
+
+    <div class="field">
+      <%= ac.label :cc_number, "Credit card number" %><br />
+      <%= ac.text_field :cc_number, required: true %>
+    </div>
+  <%end%>
+         
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

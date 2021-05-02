@@ -38,6 +38,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.session_store :cookie_store, :key => '_some_key', :domain => '.lvh.me'
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

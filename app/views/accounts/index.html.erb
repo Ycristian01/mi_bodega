@@ -3,7 +3,7 @@
 <ul>
   <% @accounts.each do |account| %>
     <li>
-      <%= link_to account.name,"#{change_subdomain(@url, @subdomain, account.subdomain)}/boxes" %>
+      <%= link_to account.name,"#{change_subdomain(@url, @subdomain, account.subdomain)}/users" %>
       
     </li>
     <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>

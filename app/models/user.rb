@@ -7,9 +7,14 @@ class User < ApplicationRecord
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
 
-  # before_validation :set_account
+  accepts_nested_attributes_for :accounts
+  validates_associated :accounts
+  #after_initialize :add_account
   
-  # def set_account
-  #   self.build_account
+  # Create new blank contact on new record initialize.
+  # This makes it so a blank Contact is attached when when
+  # we create a new User
+  # def add_account
+  #   self.accounts ||= Account.new if self.new_record?
   # end
 end
