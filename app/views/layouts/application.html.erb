@@ -17,7 +17,8 @@
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
-    
+    <h1><%= current_user&.email%></h1>
+    <h2><%= current_tenant&.name %></h2>
     <%= yield %>
   </body>
 </html>

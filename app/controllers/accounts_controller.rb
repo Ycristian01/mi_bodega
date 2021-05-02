@@ -2,10 +2,9 @@ class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account, only: %i[ show edit update destroy ]
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts.all
     @url = request.protocol + request.host_with_port
-    @subdomain = request.subdomain
-    
+    @subdomain = request.subdomain 
   end
 
   def show

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  
   set_current_tenant_by_subdomain(:account,:subdomain)
   helper_method :change_subdomain
 
@@ -25,4 +26,5 @@ class ApplicationController < ActionController::Base
     url = request.protocol + request.host_with_port
     change_subdomain(url, subdomain, "")
   end
+
 end
