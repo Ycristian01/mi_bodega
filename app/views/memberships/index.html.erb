@@ -7,16 +7,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @memberships.each do |member| %>
+    <% @members.each do |member| %>
       <% if member.user.active_for_authentication? %>
         <tr>
           <td><%= member.user.email %></td>
-          <% if current_user.is_admin?(current_tenant.id) %>
-            <td><%= link_to 'Delete from this account', member, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" if current_user != member.user %></td>
-          <% end %>
         </tr>
       <% end %>
     <% end %>
   </tbody>
 </table>
-<%= link_to "Add a member", new_member_path, class: "btn btn-primary" if current_user.is_admin?(current_tenant.id) %>
