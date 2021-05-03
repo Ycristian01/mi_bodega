@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'acts_as_tenant'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'devise_invitable', '~> 2.0.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

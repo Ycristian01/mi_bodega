@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   
   set_current_tenant_by_subdomain(:account,:subdomain)
   helper_method :change_subdomain

@@ -1,72 +1,46 @@
 # frozen_string_literal: true
-class User::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+class Users::RegistrationsController < Devise::RegistrationsController
+  # skip_before_action :authenticate_user!
+  before_action :sign_up_params, only: [:create]
   before_action :configure_permitted_parameters
   prepend_before_action :require_no_authentication, only: [:new, :create]
   #before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
-    @account = Account.new
-    @membership = Membership.new
+    build_resource(sign_up_params)
+    resource.build_account
   end
 
   def create
+    build_resource
+    resource.build_account 
+    Membership.create(user_id: resource.id, account_id: resource.account.id)
     byebug
-    @account = Account.new(account_params)
-    @account.save
-    @membership = Membership.new(user_id: current_user.id, account_id: @account.id)
-    @membership.save
-  end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource
-  # def update
-  #   super
-  # end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :password, :subdomain, :cc_number]])
   end
 
   protected
 
+    def set_account
+      @account = Account.find(params[:id])
+    end
+
     def sign_up_params
       params.require(:user).permit(
+        :email,
         :password,
         :password_confirmation,
-        contact: [
-          :name,
-          :subdomain,
-          :password,
-          :cc_number
-        ]
+        account_attributes: [:name, :plan, :subdomain, :cc_number]
       )
     end
 
-  private
-
     def account_params
-      params.require(:account).permit(:name, :subdomain, :password, :cc_number)
+      params.permit(:name, :subdomain, :cc_number)
     end  
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :subdomain, :cc_number]])
+    end
  
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_permitted_parameters

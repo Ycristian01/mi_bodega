@@ -95,6 +95,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.5)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     erubi (1.10.0)
     ffi (1.15.0-x64-mingw32)
     globalid (0.4.2)
@@ -225,6 +228,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise_invitable (~> 2.0.0)
   jbuilder (~> 2.7)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

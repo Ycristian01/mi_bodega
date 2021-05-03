@@ -8,5 +8,4 @@ class Account < ApplicationRecord
 
   has_many :boxes, dependent: :destroy
   has_many :memberships, dependent: :destroy
-  has_many :invites, dependent: :destroy
 end
