@@ -3,11 +3,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :memberships, dependent: :destroy
-  has_many :accounts, through :members, dependent: :destroy
-  has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
-  has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
+  has_many :accounts, through: :memberships, dependent: :destroy
+  has_one :account, dependent: :destroy
 
-  accepts_nested_attributes_for :accounts
+  accepts_nested_attributes_for :account
   # validates_associated :accounts
   #after_initialize :add_account
   
