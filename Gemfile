@@ -21,6 +21,16 @@ gem 'devise'
 gem 'acts_as_tenant'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 gem 'devise_invitable', '~> 2.0.0'
+gem 'stripe'
+gem 'pay', '~> 2.0'
+# To use Braintree + PayPal, also include:
+gem 'braintree', '< 3.0', '>= 2.92.0'
+
+# To use Paddle, also include:
+gem 'paddle_pay', '~> 0.1'
+
+# To use Receipts
+gem 'receipts', '~> 1.0.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
