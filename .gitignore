@@ -6,9 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/.env
-
-config\initializers\stripe.rb
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -41,3 +38,5 @@ config\initializers\stripe.rb
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+config/initializers/stripe.rb
+.env

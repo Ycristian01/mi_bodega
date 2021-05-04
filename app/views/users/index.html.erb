@@ -16,6 +16,9 @@
     <div class="item">
       <%= link_to 'New invite', new_membership_path %>
     </div>
+    <div class="item">
+      <%= link_to 'Add payment method', checkout_path %>
+    </div>
   </div>
   <%else%>
     <%= link_to 'Log in', new_user_session_path %>

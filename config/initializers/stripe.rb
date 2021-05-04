@@ -1,3 +1,2 @@
-# require 'stripe'
-#   Stripe.api_key = Rails.application.credentials.stripe[:secret_key]
-#   public_key = Rails.application.credentials.stripe[:public_key]
+Stripe.api_key = ENV['STRIPE_SECRET']
+public_key = ENV['STRIPE_PUBLIC']

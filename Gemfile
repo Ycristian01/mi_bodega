@@ -25,6 +25,7 @@ gem 'stripe'
 gem 'pay', '~> 2.0'
 # To use Braintree + PayPal, also include:
 gem 'braintree', '< 3.0', '>= 2.92.0'
+gem 'dotenv-rails', groups: [:development, :test]
 
 # To use Paddle, also include:
 gem 'paddle_pay', '~> 0.1'
