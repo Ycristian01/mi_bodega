@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
     passwords: "users/passwords",
     invitations: 'users/invitations' }
-    
+  
+  get 'checkout', to: 'checkouts#show'
+  get 'billing', to: 'billing#show'
+
   resources :invites
   resources :users
   resources :accounts

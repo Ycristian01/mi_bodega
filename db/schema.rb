@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_014013) do
+ActiveRecord::Schema.define(version: 2021_05_04_020610) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2021_05_04_014013) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "subdomain"
     t.string "plan"
+    t.string "processor"
+    t.string "processor_id"
+    t.datetime "trial_ends_at"
+    t.string "card_type"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.text "extra_billing_info"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 

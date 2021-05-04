@@ -17,6 +17,7 @@ class AccountsController < ApplicationController
 
   def create 
     @account = current_user.accounts.create(account_params)
+    byebug
     if @account.save
       redirect_to users_path
       @membership = Membership.new(user_id: current_user.id, account_id: @account.id)
@@ -35,7 +36,7 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit(:name, :subdomain, :cc_number)
+      params.require(:account).permit(:name, :subdomain, :plan)
     end
 
     

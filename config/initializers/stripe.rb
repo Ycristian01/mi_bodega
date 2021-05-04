@@ -1,2 +1,3 @@
-Stripe.api_key = "sk_test_51InB2HHPqdZEH70c5tdxFMBQpZZhK0hfiHuU8Up0VTr3WXeVpvnA114iLb2p7C1STqmOyGGzpRwESiDvZYEMH3AG00TnOX9czw"
-STRIPE_PUBLIC_KEY = "pk_test_51InB2HHPqdZEH70cNWPjahCDf2bu6seKQ2lHwqaLzEwVxZwtivSiUE3Bg7D7A4WZtrOzMvRfmBcPIZcEm4pXKoWn00YA1yyBWV"
+# require 'stripe'
+#   Stripe.api_key = Rails.application.credentials.stripe[:secret_key]
+#   public_key = Rails.application.credentials.stripe[:public_key]

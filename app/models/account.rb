@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  include Pay::Billable
   belongs_to :user
 
   validates :name, presence: true
