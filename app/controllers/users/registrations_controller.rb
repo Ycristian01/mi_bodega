@@ -24,6 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.account.subscription(account_params)
       end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
+      byebug
       yield resource if block_given?
       if resource.persisted?
         if resource.active_for_authentication?

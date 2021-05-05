@@ -23,10 +23,11 @@ class MembershipsController < ApplicationController
         render :new
       end
     else
-      if !current_tenant.user.exists?(@user.id)
+      if !current_tenant.memberships.find_by(user_id: @user.id)
+        byebug
         @member = @user.memberships.create(account_id: current_tenant.id)
         flash[:notice] = "#{@user.email} added succesfully to this account"
-        redirect_to members_path
+        redirect_to membership_path
       else
         flash.now[:alert] = "#{@user.email} is a member already"
         render :new

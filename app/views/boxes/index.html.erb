@@ -9,4 +9,5 @@
   <% end %>
 </ul>
 
+<%= if current_tenant.plan==free && @boxes %>
 <%= link_to "add new box", new_box_path %>
