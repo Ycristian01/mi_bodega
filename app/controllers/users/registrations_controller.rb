@@ -20,6 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
     if resource.valid?
       resource.save
+      if resource.account.plan != "Free"
+        resource.account.subscribe(account_params)
+      end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
       yield resource if block_given?
       if resource.persisted?
@@ -71,14 +74,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     redirect_to new_registration_path(resource_name)
   end
 
+  def account_params 
+    params.permit(:card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year).to_h
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :subdomain, :card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year]])
+  end
+  
   protected
 
     def set_account
       @account = Account.find(params[:id])
-    end
-
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :subdomain, :cc_number]])
     end
  
   # If you have extra params to permit, append them to the sanitizer.

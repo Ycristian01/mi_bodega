@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_020610) do
+ActiveRecord::Schema.define(version: 2021_05_04_203739) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 2021_05_04_020610) do
     t.string "card_exp_month"
     t.string "card_exp_year"
     t.text "extra_billing_info"
+    t.string "stripe_customer_id"
+    t.string "card_number"
+    t.string "card_expires"
+    t.string "cvc"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
