@@ -1,2 +1,12 @@
 <h1>Boxes index</h1>
 
+<ul>
+  <% @boxes.each do |box| %>
+    <li>
+      <%= link_to box.name, box %> 
+    </li>
+    <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>
+  <% end %>
+</ul>
+
+<%= link_to "add new box", new_box_path %>

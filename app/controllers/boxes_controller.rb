@@ -1,7 +1,8 @@
 class BoxesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_box, only: %i[ show edit update destroy ]
   def index
-    @boxes = Box.all
+    @boxes = current_tenant.boxes
   end
 
   def new
@@ -9,6 +10,7 @@ class BoxesController < ApplicationController
   end
 
   def show
+    @items = @box.items
   end
 
   def create 

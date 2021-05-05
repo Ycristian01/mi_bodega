@@ -1,0 +1,12 @@
+<h1><%= @box.name %></h1>
+
+<ul>
+  <% @items.each do |item| %>
+    <li>
+       <p><%= item.description %></p> 
+       <%= image_tag item.image %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'add item', new_box_item_path(@box) %>
