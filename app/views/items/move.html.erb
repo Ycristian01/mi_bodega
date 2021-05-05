@@ -1,0 +1,9 @@
+<h1>Move item to another box</h1>
+<%= form_tag box_item_path(@box), method: :patch do %>
+  <div class="form-group">
+    <%= label_tag :to_box, "To box" %>
+    <%= select_tag :to_box, options_for_select(@box_options), class: "form-control" %>
+  </div>  
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <%= submit_tag "Move to box", method: :patch, class: "btn btn-primary ml-2" %>
+<%end%>

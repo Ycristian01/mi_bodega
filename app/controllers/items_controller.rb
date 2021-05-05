@@ -23,6 +23,11 @@ class ItemsController < ApplicationController
     redirect_to @box, notice: "You're not using this item anymore"
   end
 
+  def move
+    boxes = current_tenant.boxes.select(:id, :name).where.not(id: params[:box_id])
+    @box_options = boxes.each.map{|box| [box.name, box.id]}
+  end
+
   def create 
     @item = @box.items.build(item_params)
     respond_to do |format|
@@ -37,12 +42,9 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
-      redirect_to @box
-      flash[:notice] = "item was successfully updated." 
-    else
-      redirect_to @box
-      flash[:notice] = "item was no updated." 
+    @target_box = current_tenant.boxes.find(params[:to_box])
+    if @item.update(box_id: @target_box.id)
+      redirect_to @box, notice: "Item moved to box #{@target_box.name}"
     end
   end
 

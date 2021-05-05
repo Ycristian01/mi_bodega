@@ -7,6 +7,7 @@ class BoxesController < ApplicationController
 
   def new
     @box = Box.new
+    @boxes = current_tenant.boxes
   end
 
   def show
@@ -14,6 +15,7 @@ class BoxesController < ApplicationController
   end
 
   def create 
+    @boxes = current_tenant.boxes
     @box = Box.new(box_params)
   
     if @box.save

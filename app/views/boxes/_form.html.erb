@@ -1,28 +1,34 @@
 <h1>This is the box form</h1>
 
-<%= form_with model: @box do |form| %>
+<% if current_tenant.plan=="free" && @boxes.count==1 %>
+  <h5>You reached the maximun number of boxes allowed for your plan</h5>
+  <%elsif current_tenant.plan=="moderate" && @boxes.count==5 %>
+    <h5>You reached the maximun number of boxes allowed for your plan</h5>
+  <%else%>
+    
+  <%= form_with model: @box do |form| %>
 
-  <% if @box.errors.any? %>
-    <div id="error_explanation">
-      <h2 class="red ui header"><%= pluralize(@box.errors.count, "error") %> prohibited this box from being saved:</h2>
+    <% if @box.errors.any? %>
+      <div id="error_explanation">
+        <h2 class="red ui header"><%= pluralize(@box.errors.count, "error") %> prohibited this box from being saved:</h2>
 
-      <div class="ui list">
-        <% @box.errors.each do |error| %>
-          <div class="item">
-            <i class="red times circle icon"></i>
-            <%= error.full_message %>
-          </div>
-        <% end %>
-      </div> 
+        <div class="ui list">
+          <% @box.errors.each do |error| %>
+            <div class="item">
+              <i class="red times circle icon"></i>
+              <%= error.full_message %>
+            </div>
+          <% end %>
+        </div> 
+      </div>
+    <%end%>
+
+    <div class="field">
+      <%= form.text_field :name, placeholder:"Box name" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class:"ui primary button"%>
     </div>
   <%end%>
-
-  <div class="field">
-    <%= form.text_field :name, placeholder:"Box name" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit class:"ui primary button"%>
-  </div>
-
 <%end%>
