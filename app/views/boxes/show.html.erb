@@ -3,8 +3,17 @@
 <ul>
   <% @items.each do |item| %>
     <li>
-       <p><%= item.description %></p> 
-       <%= image_tag item.image %>
+      <p><%= item.description %></p> 
+      <%= image_tag item.image %>
+      <% if item.using_by.nil? %>
+        <%=link_to "Mark as in use", box_item_mark_path(@box,item), method: :patch %>
+        <%else%>
+          <%if item.using_by==current_user.id%>
+            <%=link_to "Uncheck", box_item_uncheck_path(@box,item), method: :patch %>
+            <%else%>
+              <h5>This item is been used by <%= User.find_by(id: item.using_by).email %></h5>
+          <%end%>
+      <%end%>
     </li>
   <% end %>
 </ul>

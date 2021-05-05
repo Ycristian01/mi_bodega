@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if resource.valid?
       resource.save
       if resource.account.plan != "free"
-        resource.account.subscribe(account_params)
+        resource.account.subscription(account_params)
       end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
       yield resource if block_given?

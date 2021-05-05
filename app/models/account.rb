@@ -29,7 +29,7 @@ class Account < ApplicationRecord
   STRIPE_PRICES = { moderate: "price_1InTzQHPqdZEH70cmJiVyzv6", unlimited: "price_1InU00HPqdZEH70c48pJpYXP" }
   
 
-  def subscribe(account_params)
+  def subscription(account_params)
     Stripe.api_key = ENV['STRIPE_SECRET']
     price = STRIPE_PRICES[plan.to_sym]
     card_hash = {number: user.account.card_number, exp_month: user.account.card_exp_month, exp_year: user.account.card_exp_year, last4: user.account.card_last4, cvc: user.account.cvc}
