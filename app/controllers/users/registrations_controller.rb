@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
     if resource.valid?
       resource.save
-      if resource.account.plan != "Free"
+      if resource.account.plan != "free"
         resource.account.subscribe(account_params)
       end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
@@ -81,7 +81,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :subdomain, :card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year]])
   end
-  
+
   protected
 
     def set_account

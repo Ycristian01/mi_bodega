@@ -1,10 +1,14 @@
 <h1>Accounts</h1>
 
 <ul>
-  <% @accounts.each do |account| %>
+  <% @memberships.each do |member| %>
     <li>
-      <%= link_to account.name,"#{change_subdomain(@url, @subdomain, account.subdomain)}/users" %>
-      
+      <%if member.account.user_id == current_user.id%>
+        <%= link_to  "#{member.account.name} (admin)","#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %> 
+        <%else%>
+          <%= link_to  member.account.name,"#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %> 
+      <%end%>
+    
     </li>
     <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>
   <% end %>
