@@ -1,0 +1,24 @@
+<h1>Billing account info</h1>
+
+<p class="card-text"><%= @current_account.card_type %>  *****<%= @account.card_last4 %> </p>
+<p class="card-text"> Price: <%= number_to_currency(Account.prices[@account.plan.to_sym]/100) %>/month </p>
+<p class="card-text"> Next charge on: <%= (@subscription[:current_period_end].to_s) %></p>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th> Amount (USD) </th>
+        <th> Payment Date  </th>
+        <th> Reason </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @charges.each do |charge| %>
+        <tr>
+          <td><%= number_to_currency(charge[:amount]/100) %> </td>
+          <td><%= (charge[:created].to_s) %></td>
+          <td><%= charge[:description] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

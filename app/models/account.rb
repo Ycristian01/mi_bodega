@@ -6,8 +6,6 @@ class Account < ApplicationRecord
 
   validates :name, presence: true
   validates :name, format: { with:  /\A[A-Za-z0-9\-\s]*\z/ }
-  validates :subdomain, presence: true
-  validates :subdomain, format: { with:  /\A[A-Za-z]*\z/ }
   validates :plan, presence: true
 
   has_many :boxes, dependent: :destroy
@@ -15,6 +13,12 @@ class Account < ApplicationRecord
 
   before_save -> do
     self.card_last4 = self.card_number[-4..-1]
+  end
+
+  PRICES = { moderate: 500, unlimited: 1000 }
+
+  def self.prices 
+    PRICES
   end
 
   def self.month_options
@@ -52,6 +56,7 @@ class Account < ApplicationRecord
 
     self.stripe_id =  card[:id]
     self.stripe_customer_id =  card[:customer]
+    self.card_type = card[:brand]
     Stripe::PaymentMethod.create({type: 'card',
                     card: {
                     number: card_hash[:number],

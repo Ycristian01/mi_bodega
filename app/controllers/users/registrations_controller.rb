@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # skip_before_action :authenticate_user!
   before_action :configure_permitted_parameters
   prepend_before_action :require_no_authentication, only: [:new, :create]
-  before_action :set_current_account
+  before_action :set_current_account, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -82,7 +82,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :subdomain, :card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year]])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [account_attributes: [:name, :plan, :card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year]])
   end
 
   protected

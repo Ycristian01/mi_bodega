@@ -30,11 +30,6 @@
     </div>
 
     <div class="field">
-      <%= ac.label :subdomain, "Account subdomain" %><br />
-      <%= ac.text_field :subdomain, required: true %>
-    </div>
-
-    <div class="field">
       <%= ac.label :plan, "Plan" %><br />
       <%= ac.select :plan, options_for_select(["free", "moderate", "unlimited"]), {}, id: "tenant_plan" %>
     </div>

@@ -6,11 +6,11 @@
       <%if member.account.user_id == current_user.id%>
         <%= link_to  "#{member.account.name} (admin)", account_select_path(member.account), method: :patch %> <br />
         <%= link_to "Edit account", edit_user_registration_path%>
+        <%= link_to "See billing info", account_billing_path(member.account) %>
         <%else%>
           <%= link_to  member.account.name, account_select_path(member.account), method: :patch %><br />
       <%end%>
-      
-    
+        
     </li>
     
   <% end %>

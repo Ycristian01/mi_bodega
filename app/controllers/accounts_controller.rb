@@ -1,15 +1,23 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_account, only: %i[ show edit update destroy ]
+  before_action :set_account, only: %i[ show edit update destroy billing]
+  before_action :set_current_account
+
   def index
     @accounts = current_user.accounts
     @memberships = current_user.memberships
-    @url = request.protocol + request.host_with_port
-    @subdomain = request.subdomain
   end
 
   def show
     @boxes = @account.boxes.all
+  end
+
+  def billing
+    Stripe.api_key = ENV['STRIPE_SECRET']
+
+    @charges = Stripe::Charge.list({customer: @current_account.stripe_customer_id})[:data]
+    @subscription = Stripe::Subscription.list({customer: @current_account.stripe_customer_id, limit: 1})[:data].first
+    
   end
 
   def select 
@@ -44,5 +52,8 @@ class AccountsController < ApplicationController
       params.require(:account).permit(:name, :subdomain, :plan, :card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year)
     end
 
+    def set_current_account
+      @current_account = Account.find_by(id: current_user.current_tenant_id)
+    end
     
 end

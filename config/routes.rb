@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users
   resources :accounts
     patch "select/:id", to: "accounts#select", as: "account_select"
+    get "billing/:id", to: "accounts#billing", as: "account_billing"
   resources :boxes do
     resources :items
     patch "mark/:id", to: "items#mark", as: "item_mark"
