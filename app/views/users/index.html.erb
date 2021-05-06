@@ -3,6 +3,7 @@
 
 <%if user_signed_in? %>
   <h2>Welcome <%= current_user.email %>
+  
   <div class="ui list">
     <div class="item">
       <%= link_to 'Log out', destroy_user_session_path, method: :delete  %>

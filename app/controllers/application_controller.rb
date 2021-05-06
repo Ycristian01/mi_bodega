@@ -1,30 +1,17 @@
 class ApplicationController < ActionController::Base
-  #before_action :authenticate_user!
+  set_current_tenant_through_filter
+  before_action :authenticate_user!
   
-  set_current_tenant_by_subdomain(:account,:subdomain)
-  helper_method :change_subdomain
-
-  def change_subdomain(url, old_subdomain, new_subdomain)
-    if old_subdomain == ""
-      if new_subdomain == ""
-        url.gsub("//#{old_subdomain}","//#{new_subdomain}")
-      else
-        url.gsub("//#{old_subdomain}","//#{new_subdomain}.")
-      end
-    else
-      if new_subdomain == ""
-        url.gsub("//#{old_subdomain}.","//#{new_subdomain}")
-      else
-        url.gsub("//#{old_subdomain}","//#{new_subdomain}")
-      end
-    end
-  
+  def current_member
+    @current_member||=current_tenant.members.find_by_user_id(current_user.id)
   end
 
-  def after_sign_out_path_for(resource_or_scope)
-    subdomain = request.subdomain
-    url = request.protocol + request.host_with_port
-    change_subdomain(url, subdomain, "")
+  def after_accept_path_for(resource)
+    accounts_path
   end
 
+  def after_sign_in_path_for(resource)
+    accounts_path
+  end
+  
 end

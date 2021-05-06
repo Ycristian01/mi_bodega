@@ -12,13 +12,17 @@ class AccountsController < ApplicationController
     @boxes = @account.boxes.all
   end
 
+  def select 
+    current_user.update(current_tenant_id: params[:id])
+    redirect_to boxes_path
+  end
+
   def new
     @account = current_user.accounts.new
   end
 
   def create 
     @account = current_user.accounts.create(account_params)
-    byebug
     if @account.save
       redirect_to users_path
       @membership = Membership.new(user_id: current_user.id, account_id: @account.id)

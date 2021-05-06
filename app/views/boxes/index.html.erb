@@ -5,13 +5,12 @@
     <li>
       <%= link_to box.name, box %> 
     </li>
-    <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>
   <% end %>
 </ul>
 
-<% if current_tenant.plan=="free" && @boxes.count==1 %>
+<% if @current_account.plan=="free" && @boxes.count==1 %>
   <h5>You reached the maximun number of boxes allowed for your plan</h5>
-  <%elsif current_tenant.plan=="moderate" && @boxes.count==5 %>
+  <%elsif @current_account.plan=="moderate" && @boxes.count==5 %>
     <h5>You reached the maximun number of boxes allowed for your plan</h5>
   <%else%>
     <%= link_to "add new box", new_box_path %>

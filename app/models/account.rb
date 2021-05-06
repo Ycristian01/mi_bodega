@@ -37,7 +37,6 @@ class Account < ApplicationRecord
     token = Stripe::Token::create({card: card_hash})[:id]
     customer = Stripe::Customer.update user.account.stripe_customer_id, source: token
     card = Stripe::Customer.list_sources(customer[:id])[:data].first
-    byebug
       
     self.stripe_id = card[:id]
   end
@@ -45,8 +44,8 @@ class Account < ApplicationRecord
   def subscription()
     Stripe.api_key = ENV['STRIPE_SECRET']
     price = STRIPE_PRICES[plan.to_sym]
-    card_hash = {number: user.account.card_number, exp_month: user.account.card_exp_month, exp_year: user.account.card_exp_year, last4: user.account.card_last4, cvc: user.account.cvc}
-    
+    card_hash = {number: user.account.card_number, exp_month: user.account.card_exp_month, 
+      exp_year: user.account.card_exp_year, last4: user.account.card_last4, cvc: user.account.cvc}
     token = Stripe::Token::create({card: card_hash})[:id]
     customer = Stripe::Customer.create email: user.email, source: token
     card = Stripe::Customer.list_sources(customer[:id])[:data].first
@@ -59,7 +58,7 @@ class Account < ApplicationRecord
                     cvc: card_hash[:cvc],
                     exp_month: card_hash[:exp_month], 
                     exp_year: card_hash[:exp_year], 
-                    last4: card_hash[:last4],
+                    last4: card_hash[:card_last4],
                       },
                     })
   

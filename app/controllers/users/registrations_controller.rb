@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # skip_before_action :authenticate_user!
   before_action :configure_permitted_parameters
   prepend_before_action :require_no_authentication, only: [:new, :create]
-  #before_action :configure_account_update_params, only: [:update]
+  before_action :set_current_account
 
   # GET /resource/sign_up
   def new
@@ -17,14 +17,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource
     resource.build_account
     resource.assign_attributes(sign_up_params)
-    
     if resource.valid?
       resource.save
       if resource.account.plan != "free"
         resource.account.subscription()
       end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
-      byebug
       yield resource if block_given?
       if resource.persisted?
         if resource.active_for_authentication?
@@ -64,7 +62,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
-    byebug
   end
 
   def destroy
@@ -92,6 +89,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def set_account
       @account = Account.find(params[:id])
+    end
+
+    def set_current_account
+      @current_account = Account.find_by(id: current_user.current_tenant_id)
     end
  
   # If you have extra params to permit, append them to the sanitizer.

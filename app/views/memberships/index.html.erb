@@ -3,7 +3,7 @@
   <thead>
     <tr>
       <th scope="col">Email</th>
-      <%= "<th></th>".html_safe if current_user.account&.id == current_tenant.id %>
+      <%= "<th></th>".html_safe if current_user.account&.id == @current_account.id %>
     </tr>
   </thead>
   <tbody>

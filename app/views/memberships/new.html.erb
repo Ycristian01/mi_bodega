@@ -1,5 +1,5 @@
 <h1>Invite a user</h1>
-<% if current_user.account&.id == current_tenant.id %>
+<% if current_user.account&.id == @current_account.id %>
   <%= form_with(model: @user, url: memberships_path, method: :post) do |form| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
