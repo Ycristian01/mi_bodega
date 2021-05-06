@@ -27,31 +27,31 @@
   </div>
 
   <%= f.fields_for :account do |ac| %>
-    <% if @current_account.id == current_user.id %>
-      <div class="field">
-        <%= ac.label :card_number, "Card number" %>
-        <%= ac.text_field :card_number, required: true, class: "form-control"  %>
-      </div>
+    
+    <div class="field">
+      <%= ac.label :card_number, "Card number" %>
+      <%= ac.text_field :card_number, required: true, class: "form-control"  %>
+    </div>
 
-      <div class="field">
-        <%= ac.label :cvc, "CVC" %>
-        <%= ac.text_field :cvc, required: true %>
-      </div>
+    <div class="field">
+      <%= ac.label :cvc, "CVC" %>
+      <%= ac.text_field :cvc, required: true %>
+    </div>
 
-      <div class="field"> 
-        <div class="row">
-          <div class="col-12">
-            <%= ac.label :card_expires, "Card expires" %>
-          </div>
-          <div class="col-6">
-            <%= ac.select :card_exp_month, options_for_select(Account.month_options), required: true, class: "form-control" %>
-          </div>
-          <div class="col-6 pl-sm-0">
-            <%= ac.select :card_exp_year, options_for_select(Account.year_options), required: true, class: "form-control" %>
-          </div>
+    <div class="field"> 
+      <div class="row">
+        <div class="col-12">
+          <%= ac.label :card_expires, "Card expires" %>
+        </div>
+        <div class="col-6">
+          <%= ac.select :card_exp_month, options_for_select(Account.month_options), required: true, class: "form-control" %>
+        </div>
+        <div class="col-6 pl-sm-0">
+          <%= ac.select :card_exp_year, options_for_select(Account.year_options), required: true, class: "form-control" %>
         </div>
       </div>
-    <%end%>
+    </div>
+  
   <%end%>
 
   <div class="actions">

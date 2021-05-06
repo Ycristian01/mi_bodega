@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This website allows you to save images with a description and share them with other users who are members of your account.
 
-Things you may want to cover:
+As an unregistered user you can:
 
-* Ruby version
+* Create a user with email and password
 
-* System dependencies
+* Introduce a payment method if you want to subscribe to the premium features
 
-* Configuration
+* Share content with users that you invited to your account
 
-* Database creation
+* Save images in different spaces called 'boxes' in order to personalize your account
 
-* Database initialization
+* Invite unregistered users with a email 
 
-* How to run the test suite
+* You will need ruby '3.0.0', 'rails', '~> 6.1.3' or forward so you can run the program 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* You can find the app in heroku too: https://my-warehouse01.herokuapp.com/ 
