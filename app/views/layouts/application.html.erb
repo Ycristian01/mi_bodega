@@ -25,6 +25,9 @@
         <a class="ui item">
           <%=link_to 'Boxes list', boxes_path, method: :get %>
         </a>
+        <a class="ui item">
+          <%=link_to 'Invite to account', new_membership_path, method: :get %>
+        </a>
         <div class="right menu">
           <%if current_user.current_tenant_id==nil %>
             <a class="ui item">
