@@ -17,11 +17,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource
     resource.build_account
     resource.assign_attributes(sign_up_params)
-  
+    
     if resource.valid?
       resource.save
       if resource.account.plan != "free"
-        resource.account.subscription(account_params)
+        resource.account.subscription()
       end
       Membership.create(user_id: resource.id, account_id: resource.account.id)
       byebug
@@ -47,8 +47,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
     resource_updated = update_resource(resource, account_update_params)
+    # resource.save
+    if resource.account.plan != "free"
+      resource.account.update_card(account_params)
+    end
+    resource.account.update(account_params)
     yield resource if block_given?
     if resource_updated
       set_flash_message_for_update(resource, prev_unconfirmed_email)
@@ -60,6 +64,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
+    byebug
   end
 
   def destroy
@@ -76,7 +81,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def account_params 
-    params.permit(:card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year).to_h
+    params.dig(:user,:account_attributes).permit(:card_number, :card_expires, :cvc, :card_exp_month, :card_exp_year, :stripe_customer_id, :stripe_id).to_h
   end
 
   def configure_permitted_parameters

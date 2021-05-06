@@ -4,10 +4,11 @@
   <% @memberships.each do |member| %>
     <li>
       <%if member.account.user_id == current_user.id%>
-        <%= link_to  "#{member.account.name} (admin)","#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %> 
+        <%= link_to  "#{member.account.name} (admin)","#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %> <br />
         <%else%>
-          <%= link_to  member.account.name,"#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %> 
+          <%= link_to  member.account.name,"#{change_subdomain(@url, @subdomain, member.account.subdomain)}/users" %><br />
       <%end%>
+      <%= link_to "Edit account", edit_user_registration_path%>
     
     </li>
     <%# "#{change_subdomain(@url,@subdomain,account.subdomain)}" %>

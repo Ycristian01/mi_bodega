@@ -27,27 +27,42 @@ class Account < ApplicationRecord
 
   Plans = [:free, :moderate, :unlimited]
   STRIPE_PRICES = { moderate: "price_1InTzQHPqdZEH70cmJiVyzv6", unlimited: "price_1InU00HPqdZEH70c48pJpYXP" }
-  
 
-  def subscription(account_params)
+  def update_card(account_params)
+    Stripe.api_key = ENV['STRIPE_SECRET']
+    price = STRIPE_PRICES[plan.to_sym]
+    card_hash = {number: account_params[:card_number], exp_month: account_params[:card_exp_month], exp_year: account_params[:card_exp_year], 
+      last4: account_params[:card_number][-4..-1], cvc: account_params[:cvc]}
+
+    token = Stripe::Token::create({card: card_hash})[:id]
+    customer = Stripe::Customer.update user.account.stripe_customer_id, source: token
+    card = Stripe::Customer.list_sources(customer[:id])[:data].first
+    byebug
+      
+    self.stripe_id = card[:id]
+  end
+  
+  def subscription()
     Stripe.api_key = ENV['STRIPE_SECRET']
     price = STRIPE_PRICES[plan.to_sym]
     card_hash = {number: user.account.card_number, exp_month: user.account.card_exp_month, exp_year: user.account.card_exp_year, last4: user.account.card_last4, cvc: user.account.cvc}
-    byebug
+    
     token = Stripe::Token::create({card: card_hash})[:id]
     customer = Stripe::Customer.create email: user.email, source: token
     card = Stripe::Customer.list_sources(customer[:id])[:data].first
-    
+
+    self.stripe_id =  card[:id]
+    self.stripe_customer_id =  card[:customer]
     Stripe::PaymentMethod.create({type: 'card',
                     card: {
                     number: card_hash[:number],
                     cvc: card_hash[:cvc],
                     exp_month: card_hash[:exp_month], 
                     exp_year: card_hash[:exp_year], 
-                    last4: card_hash[:card_last4],
+                    last4: card_hash[:last4],
                       },
                     })
-
+  
     update(stripe_customer_id: customer[:id])
     Stripe::Subscription.create({
       customer: customer[:id],
@@ -56,4 +71,5 @@ class Account < ApplicationRecord
       ],
     })
   end
+
 end
