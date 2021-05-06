@@ -26,9 +26,15 @@
           <%=link_to 'Boxes list', boxes_path, method: :get %>
         </a>
         <div class="right menu">
-          <a class="ui item">
-            <%= Account.find_by(id: current_user.current_tenant_id).name %>
-          </a>
+          <%if current_user.current_tenant_id==nil %>
+            <a class="ui item">
+              No account
+            </a>
+            <%else%>
+              <a class="ui item">
+                <%= Account.find_by(id: current_user.current_tenant_id).name %>
+              </a>  
+          <%end%>
           <a class="ui item">
             <%=link_to 'Log out', destroy_user_session_path, method: :delete %>
           </a>      

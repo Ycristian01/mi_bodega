@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_account, only: %i[ show edit update destroy billing]
+  before_action :set_account, only: %i[ select show edit update destroy billing]
   before_action :set_current_account
 
   def index
