@@ -8,6 +8,7 @@ class Account < ApplicationRecord
   validates :name, format: { with:  /\A[A-Za-z0-9\-\s]*\z/ }
   validates :plan, presence: true
   validates :cvc, presence: true, numericality: { only_integer: true }
+  validates :card_type, presence: true, numericality: { only_integer: true }
 
   has_many :boxes, dependent: :destroy
   has_many :memberships, dependent: :destroy
