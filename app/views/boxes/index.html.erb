@@ -1,17 +1,38 @@
-<h1>Boxes index</h1>
+<h1 class="index-title">Boxes index</h1>
 
-<ul>
-  <% @boxes.each do |box| %>
-    <li>
-      <%= link_to box.name, box %> 
-    </li>
-  <% end %>
-</ul>
+<div class="ui centered grid">
+  <table class="ui basic table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @boxes.each do |box| %>
+        <tr>
+          <td><%= box.name %></td>
+          <td>
+            <%= link_to box do %>
+              <i class="large blue eye icon"></i>
+            <% end %>
+            <%= link_to box, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="large red trash icon"></i>
+            <% end %>
+          </td>
+        </tr>
+        
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<% if @current_account.plan=="free" && @boxes.count==1 %>
-  <h5>You reached the maximun number of boxes allowed for your plan</h5>
-  <%elsif @current_account.plan=="moderate" && @boxes.count==5 %>
+<div class="ui centered grid">
+  <% if @current_account.plan=="free" && @boxes.count==1 %>
     <h5>You reached the maximun number of boxes allowed for your plan</h5>
-  <%else%>
-    <%= link_to "add new box", new_box_path %>
-<%end%>
+    <%elsif @current_account.plan=="moderate" && @boxes.count==5 %>
+      <h5>You reached the maximun number of boxes allowed for your plan</h5>
+    <%else%>
+      <%=button_to "Add box", new_box_path, method: :get, class:"ui inverted green button"%>
+  <%end%>
+</div>

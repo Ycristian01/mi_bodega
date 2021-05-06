@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # skip_before_action :authenticate_user!
   before_action :configure_permitted_parameters
   prepend_before_action :require_no_authentication, only: [:new, :create]
-  before_action :set_current_account, only: [:update]
+  before_action :set_current_account, only: [:update, :edit]
 
   # GET /resource/sign_up
   def new

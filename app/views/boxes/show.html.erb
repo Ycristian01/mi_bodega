@@ -1,22 +1,26 @@
 <h1><%= @box.name %></h1>
 
-<ul>
+<div class="ui three column grid">
   <% @items.each do |item| %>
-    <li>
-      <p><%= item.description %></p> 
-      <%= image_tag item.image %>
-      <% if item.using_by.nil? %>
-        <%=link_to "Mark as in use", box_item_mark_path(@box,item), method: :patch %>
-        <%=link_to "Move", box_item_move_path(@box,item) %>
-        <%else%>
-          <%if item.using_by==current_user.id%>
-            <%=link_to "Uncheck", box_item_uncheck_path(@box,item), method: :patch %>
-            <%else%>
-              <h5>This item is been used by <%= User.find_by(id: item.using_by).email %></h5>
-          <%end%>
-      <%end%>
-    </li>
-  <% end %>
-</ul>
+    <div class="column">
+      <div class="ui segment">
+        <%= image_tag item.image %>
+        <p><%= item.description %></p>
+        <% if item.using_by.nil? %>
+          <%=link_to "Mark as in use", box_item_mark_path(@box,item), method: :patch %><br/>
+          <%=link_to "Move", box_item_move_path(@box,item) %><br/>
+          <%else%>
+            <%if item.using_by==current_user.id%>
+              <%=link_to "Uncheck", box_item_uncheck_path(@box,item), method: :patch %><br/>
+              <%else%>
+                <h5>This item is been used by <%= User.find_by(id: item.using_by).email %></h5><br/>
+            <%end%>
+        <%end%>
+      </div>
+    </div>
+  <%end%>
+</div>
 
-<%= link_to 'add item', new_box_item_path(@box) %>
+<div class="ui centered grid">
+  <%=button_to "Add item", new_box_item_path(@box), method: :get, class:"ui inverted green button"%>
+</div>

@@ -3,6 +3,10 @@
 <h2>Boxes</h2>
 
 <%= link_to 'Create new box', new_box_path %>
-<% @boxes.each do |box|%>
-  <%box.name%>
-<%end%>
+<ul>
+  <% @boxes.each do |box| %>
+    <li>
+      <%= link_to box.name, box %> 
+    </li>
+  <% end %>
+</ul>

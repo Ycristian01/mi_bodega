@@ -1,24 +1,50 @@
-<h1>Billing account info</h1>
+<h1 class="index-title">Billing account info</h1>
 
-<p class="card-text"><%= @current_account.card_type %>  *****<%= @account.card_last4 %> </p>
-<p class="card-text"> Price: <%= number_to_currency(Account.prices[@account.plan.to_sym]/100) %>/month </p>
-<p class="card-text"> Next charge on: <%= (@subscription[:current_period_end].to_s) %></p>
+<div class="ui centered grid">
+  <div>
+    <table class="ui very basic collapsing celled table">
 
-<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th> Amount (USD) </th>
-        <th> Payment Date  </th>
-        <th> Reason </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @charges.each do |charge| %>
+      <thead>
+        <tr><th>Card information</th>
+        <th>Price</th>
+        <th>Next charge</th>
+      </tr></thead>
+
+      <tbody>
         <tr>
-          <td><%= number_to_currency(charge[:amount]/100) %> </td>
-          <td><%= (charge[:created].to_s) %></td>
-          <td><%= charge[:description] %></td>
+          <td>
+            <div class="content">
+            <%= @current_account.card_type %>
+              <div class="sub header"> *****<%= @account.card_last4 %> </div>
+            </div>
+          </td>
+          <td>
+            <%= number_to_currency(Account.prices[@account.plan.to_sym]/100) %>/month
+          </td>
+          <td>
+            <%= to_date(@subscription[:current_period_end].to_s) %>
+          </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
+    <table class="ui very basic collapsing celled table">
+      <thead>
+        <tr>
+          <th> Amount (USD) </th>
+          <th> Payment Date  </th>
+          <th> Reason </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @charges.each do |charge| %>
+          <tr>
+            <td><%= number_to_currency(charge[:amount]/100) %> </td>
+            <td><%= to_date(charge[:created].to_s) %></td>
+            <td><%= charge[:description] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

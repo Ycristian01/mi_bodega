@@ -28,6 +28,14 @@ class BoxesController < ApplicationController
     end
   end
 
+  def destroy
+    @box.destroy
+    respond_to do |format|
+      format.html { redirect_to boxes_url, notice: "Box was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   def set_box

@@ -15,7 +15,7 @@ class Account < ApplicationRecord
     self.card_last4 = self.card_number[-4..-1]
   end
 
-  PRICES = { moderate: 500, unlimited: 1000 }
+  PRICES = { moderate: 100, unlimited: 500 }
 
   def self.prices 
     PRICES

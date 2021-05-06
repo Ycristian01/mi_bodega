@@ -8,10 +8,6 @@ class AccountsController < ApplicationController
     @memberships = current_user.memberships
   end
 
-  def show
-    @boxes = @account.boxes.all
-  end
-
   def billing
     Stripe.api_key = ENV['STRIPE_SECRET']
 
