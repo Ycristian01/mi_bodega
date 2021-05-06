@@ -1,6 +1,6 @@
-<h1><%= @box.name %></h1>
 
 <div class="ui three column grid">
+  <h1><%= @box.name %></h1>
   <% @items.each do |item| %>
     <div class="column">
       <div class="ui segment">
@@ -9,6 +9,9 @@
         <% if item.using_by.nil? %>
           <%=link_to "Mark as in use", box_item_mark_path(@box,item), method: :patch %><br/>
           <%=link_to "Move", box_item_move_path(@box,item) %><br/>
+           <%= link_to box_item_path(@box,item), method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="large red trash icon"></i>
+            <% end %>
           <%else%>
             <%if item.using_by==current_user.id%>
               <%=link_to "Uncheck", box_item_uncheck_path(@box,item), method: :patch %><br/>
@@ -19,6 +22,10 @@
       </div>
     </div>
   <%end%>
+</div>
+
+<div class="ui centered card">
+  <%= @box.qr_code.html_safe %>
 </div>
 
 <div class="ui centered grid">

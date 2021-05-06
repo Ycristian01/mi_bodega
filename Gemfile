@@ -29,6 +29,8 @@ gem 'rest-client'
 # To use Paddle, also include:
 gem 'paddle_pay', '~> 0.1'
 
+gem "rqrcode", "~> 2.0"
+
 # To use Receipts
 gem 'receipts', '~> 1.0.0'
 # Use Redis adapter to run Action Cable in production
